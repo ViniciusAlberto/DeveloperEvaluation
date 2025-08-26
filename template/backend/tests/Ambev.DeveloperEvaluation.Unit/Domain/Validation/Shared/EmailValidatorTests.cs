@@ -1,9 +1,9 @@
-using Ambev.DeveloperEvaluation.Domain.Validation;
+using Ambev.DeveloperEvaluation.Domain.Validation.Shared;
 using Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData;
 using FluentValidation.TestHelper;
 using Xunit;
 
-namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation;
+namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Shared;
 
 /// <summary>
 /// Contains unit tests for the EmailValidator class.

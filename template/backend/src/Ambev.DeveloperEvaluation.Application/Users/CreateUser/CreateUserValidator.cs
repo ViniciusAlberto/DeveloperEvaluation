@@ -1,5 +1,6 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Validation;
+using Ambev.DeveloperEvaluation.Domain.Validation.Shared;
 using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.Application.Users.CreateUser;

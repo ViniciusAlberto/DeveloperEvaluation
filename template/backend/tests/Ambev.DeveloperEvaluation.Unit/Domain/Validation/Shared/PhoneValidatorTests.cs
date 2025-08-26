@@ -1,8 +1,8 @@
-using Ambev.DeveloperEvaluation.Domain.Validation;
+using Ambev.DeveloperEvaluation.Domain.Validation.Shared;
 using FluentAssertions;
 using Xunit;
 
-namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation
+namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation.Shared
 {
     /// <summary>
     /// Contains unit tests for the <see cref="PhoneValidator"/> class.
