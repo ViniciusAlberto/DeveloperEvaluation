@@ -43,6 +43,16 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
             _items.Add(item);
         }
 
+        public void Update(DateTime date, ExternalCustomer customer, ExternalBranch branch)
+        {
+            Date = date;
+            Customer = customer;
+            Branch = branch;
+            _domainEvents.Add(new SaleUpdatedEvent(SaleNumber));
+        }
+
+        public void ClearItems() => _items.Clear();
+
         public void Cancel()
         {
             Cancelled = true;

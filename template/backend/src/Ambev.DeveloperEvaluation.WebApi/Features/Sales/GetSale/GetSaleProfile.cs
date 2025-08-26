@@ -1,5 +1,4 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
-using Ambev.DeveloperEvaluation.WebApi.Features.Sales.Shared;
 using AutoMapper;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale
@@ -10,9 +9,8 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale
         {
             CreateMap<GetSaleRequest, GetSaleCommand>();            
 
-            CreateMap<GetSaleResult, GetSaleResponse>();
-            CreateMap<GetSaleResult, SaleBaseResponse>();
-            CreateMap<GetSaleItemResult, SaleItemBaseResponse>();
+            CreateMap<GetSaleResult, GetSaleResponse>();            
+            CreateMap<GetSaleItemResult, GetSaleItemResponse>();
         }
     }
 }

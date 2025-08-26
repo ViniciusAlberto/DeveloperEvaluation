@@ -36,7 +36,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSale
         /// <returns>The Sale details if found</returns>
         public async Task<GetSaleResult> Handle(GetSaleCommand request, CancellationToken cancellationToken)
         {
-            var validator = new GetSaleValidator();
+            var validator = new GetSaleCommandValidator();
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
             if (!validationResult.IsValid)

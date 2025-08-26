@@ -1,8 +1,22 @@
-﻿using Ambev.DeveloperEvaluation.WebApi.Features.Sales.Shared;
-
-namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
+﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
 {
-    public class CreateSaleResponse : SaleBaseResponse
+    public class CreateSaleResponse
     {
-    }  
+        public Guid Id { get; set; }
+        public string SaleNumber { get; set; } = string.Empty;
+        public DateTime Date { get; set; }
+        public Guid CustomerId { get; set; }
+        public Guid BranchId { get; set; }
+        public decimal TotalAmount { get; set; }
+        public List<CreateSaleItemResponse> Items { get; set; } = new();
+    }
+
+    public class CreateSaleItemResponse
+    {
+        public Guid ProductId { get; set; }
+        public string ProductName { get; set; } = string.Empty;
+        public int Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal Subtotal { get; set; }
+    }
 }
