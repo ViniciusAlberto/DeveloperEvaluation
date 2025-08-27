@@ -57,14 +57,14 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
                     CustomerId = sale.Customer.ExternalId,
                     BranchId = sale.Branch.ExternalId,
                     TotalAmount = sale.TotalAmount, // pega direto da entidade
-                    Items = sale.Items.Select(i => new CreateSaleItemResult
+                    Items = [.. sale.Items.Select(i => new CreateSaleItemResult
                     {
                         ProductId = i.Product.ExternalId,
                         ProductName = i.Product.Name,
                         Quantity = i.Quantity,
                         UnitPrice = i.UnitPrice,
                         Subtotal = i.Total
-                    }).ToList()
+                    })]
                 };
             });
 
@@ -123,4 +123,3 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.Sales
         }
     }
 }
-

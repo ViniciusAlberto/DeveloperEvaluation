@@ -12,13 +12,13 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         public ExternalCustomer Customer { get; private set; }
         public ExternalBranch Branch { get; private set; }
 
-        private readonly List<SaleItem> _items = new();
+        private readonly List<SaleItem> _items = [];
         public IReadOnlyCollection<SaleItem> Items => _items.AsReadOnly();
 
         public decimal TotalAmount => _items.Sum(i => i.Total);
         public bool Cancelled { get; private set; }
 
-        private readonly List<IDomainEvent> _domainEvents = new();
+        private readonly List<IDomainEvent> _domainEvents = [];
         public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();      
 
 

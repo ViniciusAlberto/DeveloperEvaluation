@@ -29,7 +29,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
             IsCancelled = false;
         }
 
-        private decimal CalculateDiscount(decimal quantity, decimal unitPrice)
+        private static decimal CalculateDiscount(decimal quantity, decimal unitPrice)
         {
             if (quantity < 4) return 0;
             if (quantity >= 4 && quantity < 10) return quantity * unitPrice * 0.1m;

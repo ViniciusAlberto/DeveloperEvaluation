@@ -9,7 +9,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Validation
 {
     public class SaleItemValidationTests
     {
-        private readonly Faker faker = new Faker();
+        private readonly Faker faker = new ();
 
         [Fact(DisplayName = "Valid SaleItem should pass validation")]
         public void Given_ValidSaleItem_When_Validated_Then_ShouldNotHaveErrors()
