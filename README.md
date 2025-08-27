@@ -1,86 +1,127 @@
-# Developer Evaluation Project
+# Ambev Developer Evaluation - Sales Management
 
-`READ CAREFULLY`
+This project is a sample application for managing sales operations, including **Create**, **Read**, **Update**, and **Delete** (CRUD) operations for sales. It is built with **.NET 7**, **Entity Framework Core**, **MediatR**, **FluentValidation**, and **AutoMapper**.
 
-## Instructions
-**The test below will have up to 7 calendar days to be delivered from the date of receipt of this manual.**
+---
 
-- The code must be versioned in a public Github repository and a link must be sent for evaluation once completed
-- Upload this template to your repository and start working from it
-- Read the instructions carefully and make sure all requirements are being addressed
-- The repository must provide instructions on how to configure, execute and test the project
-- Documentation and overall organization will also be taken into consideration
+## 🏗️ Project Structure
 
-## Use Case
-**You are a developer on the DeveloperStore team. Now we need to implement the API prototypes.**
+```
+├── Application           # Application layer (Commands, Handlers, DTOs)
+├── Domain                # Domain layer (Entities, ValueObjects, Repositories, Events, Validators)
+├── ORM                   # EF Core implementation (DbContext, Repository)
+├── Unit                  # Unit tests (Handlers, ValueObjects)
+├── WebApi                # Web API project
+└── README.md
+```
 
-As we work with `DDD`, to reference entities from other domains, we use the `External Identities` pattern with denormalization of entity descriptions.
+---
 
-Therefore, you will write an API (complete CRUD) that handles sales records. The API needs to be able to inform:
+## ⚙️ Prerequisites
 
-* Sale number
-* Date when the sale was made
-* Customer
-* Total sale amount
-* Branch where the sale was made
-* Products
-* Quantities
-* Unit prices
-* Discounts
-* Total amount for each item
-* Cancelled/Not Cancelled
+- [.NET 7 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or any EF Core-supported database
+- [Git](https://git-scm.com/)
+- Optional: [Visual Studio 2022](https://visualstudio.microsoft.com/) or [VS Code](https://code.visualstudio.com/)
 
-It's not mandatory, but it would be a differential to build code for publishing events of:
-* SaleCreated
-* SaleModified
-* SaleCancelled
-* ItemCancelled
+---
 
-If you write the code, **it's not required** to actually publish to any Message Broker. You can log a message in the application log or however you find most convenient.
+## 📥 Setup
 
-### Business Rules
+1. Clone the repository:
 
-* Purchases above 4 identical items have a 10% discount
-* Purchases between 10 and 20 identical items have a 20% discount
-* It's not possible to sell above 20 identical items
-* Purchases below 4 items cannot have a discount
+```bash
+git clone https://github.com/yourusername/ambev-developer-evaluation.git
+cd ambev-developer-evaluation
+```
 
-These business rules define quantity-based discounting tiers and limitations:
+2. Restore NuGet packages:
 
-1. Discount Tiers:
-   - 4+ items: 10% discount
-   - 10-20 items: 20% discount
+```bash
+dotnet restore
+```
 
-2. Restrictions:
-   - Maximum limit: 20 items per product
-   - No discounts allowed for quantities below 4 items
+3. Configure the database connection string in `appsettings.json`:
 
-## Overview
-This section provides a high-level overview of the project and the various skills and competencies it aims to assess for developer candidates. 
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost;Database=SalesDb;Trusted_Connection=True;"
+}
+```
 
-See [Overview](/.doc/overview.md)
+4. Apply database migrations:
 
-## Tech Stack
-This section lists the key technologies used in the project, including the backend, testing, frontend, and database components. 
+```bash
+cd WebApi
+dotnet ef database update
+```
 
-See [Tech Stack](/.doc/tech-stack.md)
+---
 
-## Frameworks
-This section outlines the frameworks and libraries that are leveraged in the project to enhance development productivity and maintainability. 
+## 🚀 Running the Project
 
-See [Frameworks](/.doc/frameworks.md)
+Start the Web API:
 
-<!-- 
-## API Structure
-This section includes links to the detailed documentation for the different API resources:
-- [API General](./docs/general-api.md)
-- [Products API](/.doc/products-api.md)
-- [Carts API](/.doc/carts-api.md)
-- [Users API](/.doc/users-api.md)
-- [Auth API](/.doc/auth-api.md)
--->
+```bash
+dotnet run --project WebApi
+```
 
-## Project Structure
-This section describes the overall structure and organization of the project files and directories. 
+Once running, navigate to:
 
-See [Project Structure](/.doc/project-structure.md)
+```
+https://localhost:5001/swagger
+```
+
+to explore and test the endpoints via Swagger UI.
+
+---
+
+## 🧪 Running Tests
+
+Unit tests are located in the `Unit` folder. To run all tests:
+
+```bash
+dotnet test
+```
+
+The tests cover:
+
+- `CreateSaleHandler` (valid, invalid, missing product)
+- `UpdateSaleHandler` (valid, invalid, sale not found, missing product)
+- `DeleteSaleHandler` (valid, invalid, sale not found)
+- ValueObjects validations (`ExternalCustomer`, `ExternalBranch`, `ExternalProduct`)
+
+---
+
+## 📚 Features
+
+- **Sales CRUD** using CQRS pattern with MediatR
+- **Domain validation** with FluentValidation
+- **Event publishing** via domain events
+- **Repository pattern** with EF Core
+- **Unit tests** with xUnit, FluentAssertions, NSubstitute, Bogus
+
+---
+
+## 📝 Conventions
+
+- **Entities** are immutable where possible; use methods to modify state
+- **DTOs** are mapped via AutoMapper
+- **Handlers** perform validation, business logic, persistence, and event publishing
+- **Events** are published for creation, update, and deletion of sales
+
+---
+
+## 🔗 Repository Link
+
+Once completed, share the public GitHub repository link for evaluation:
+
+```
+https://github.com/ViniciusAlberto/DeveloperEvaluation
+```
+
+---
+
+## 👨‍💻 Author
+
+- **Vinicius Oliveira** - Developer Evaluation Submission
