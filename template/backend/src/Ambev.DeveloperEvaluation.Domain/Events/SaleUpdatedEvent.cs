@@ -1,4 +1,6 @@
-﻿namespace Ambev.DeveloperEvaluation.Domain.Events
+﻿using Ambev.DeveloperEvaluation.Domain.Common;
+
+namespace Ambev.DeveloperEvaluation.Domain.Events
 {
     public class SaleUpdatedEvent : IDomainEvent
     {

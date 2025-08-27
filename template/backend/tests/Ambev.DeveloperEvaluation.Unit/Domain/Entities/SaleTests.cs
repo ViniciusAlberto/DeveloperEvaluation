@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData;
+﻿using Ambev.DeveloperEvaluation.Domain.Common;
+using Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData;
 using Xunit;
 
 namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
@@ -64,5 +65,5 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
     }
 }
 
-public class TestDomainEvent : Ambev.DeveloperEvaluation.Domain.Events.IDomainEvent { }
+public class TestDomainEvent : IDomainEvent { }
 

@@ -19,54 +19,18 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(Sale sale, CancellationToken cancellationToken = default)
+        public async Task<Sale?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            _context.Sales.Remove(sale);
-            await _context.SaveChangesAsync(cancellationToken);
+            return await _context.Sales
+                .Include(s => s.Items) // Carrega itens junto
+                .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
         }
 
         public async Task<IReadOnlyList<Sale>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return await _context.Sales
                 .Include(s => s.Items)
-                .ToListAsync(cancellationToken);
-        }
-
-        public async Task<Sale?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
-        {
-            return await _context.Sales
-                .Include(s => s.Items)
-                .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
-        }
-
-        public async Task<Sale?> GetBySaleNumberAsync(string saleNumber, CancellationToken cancellationToken = default)
-        {
-            return await _context.Sales
-                .Include(s => s.Items)
-                .FirstOrDefaultAsync(s => s.SaleNumber == saleNumber, cancellationToken);
-        }
-
-        public async Task<IReadOnlyList<Sale>> GetByCustomerAsync(string customerExternalId, CancellationToken cancellationToken = default)
-        {
-            return await _context.Sales
-                .Include(s => s.Items)
-                .Where(s => s.Customer.ExternalId == customerExternalId)
-                .ToListAsync(cancellationToken);
-        }
-
-        public async Task<IReadOnlyList<Sale>> GetByBranchAsync(string branchExternalId, CancellationToken cancellationToken = default)
-        {
-            return await _context.Sales
-                .Include(s => s.Items)
-                .Where(s => s.Branch.ExternalId == branchExternalId)
-                .ToListAsync(cancellationToken);
-        }
-
-        public async Task<IReadOnlyList<Sale>> GetByDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default)
-        {
-            return await _context.Sales
-                .Include(s => s.Items)
-                .Where(s => s.Date >= startDate && s.Date <= endDate)
+                .AsNoTracking()
                 .ToListAsync(cancellationToken);
         }
 
@@ -74,6 +38,17 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         {
             _context.Sales.Update(sale);
             await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            var sale = await _context.Sales.FindAsync(new object[] { id }, cancellationToken);
+            if (sale == null)
+                return false;
+
+            _context.Sales.Remove(sale);
+            await _context.SaveChangesAsync(cancellationToken);
+            return true;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Dispatcher;
-using Ambev.DeveloperEvaluation.Domain.Events;
+using Ambev.DeveloperEvaluation.Domain.Common;
 using Rebus.Bus;
 
 namespace Ambev.DeveloperEvaluation.Rebus

@@ -1,6 +1,8 @@
-﻿namespace Ambev.DeveloperEvaluation.Domain.Handlers
+﻿using Ambev.DeveloperEvaluation.Domain.Common;
+
+namespace Ambev.DeveloperEvaluation.Domain.Handlers
 {
-    public interface IDomainEventHandler<T> where T : Events.IDomainEvent
+    public interface IDomainEventHandler<T> where T : IDomainEvent
     {
         void Handle(T domainEvent);
     }
