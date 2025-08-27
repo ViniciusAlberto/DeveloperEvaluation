@@ -1,28 +1,6 @@
 # Ambev Developer Evaluation - Sales Management
 
-This project is a sample application for managing sales operations, including **Create**, **Read**, **Update**, and **Delete** (CRUD) operations for sales. It is built with **.NET 7**, **Entity Framework Core**, **MediatR**, **FluentValidation**, and **AutoMapper**.
-
----
-
-## 🏗️ Project Structure
-
-```
-├── Application           # Application layer (Commands, Handlers, DTOs)
-├── Domain                # Domain layer (Entities, ValueObjects, Repositories, Events, Validators)
-├── ORM                   # EF Core implementation (DbContext, Repository)
-├── Unit                  # Unit tests (Handlers, ValueObjects)
-├── WebApi                # Web API project
-└── README.md
-```
-
----
-
-## ⚙️ Prerequisites
-
-- [.NET 7 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
-- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or any EF Core-supported database
-- [Git](https://git-scm.com/)
-- Optional: [Visual Studio 2022](https://visualstudio.microsoft.com/) or [VS Code](https://code.visualstudio.com/)
+This project is a sample application for managing sales operations, including **Create**, **Read**, **Update**, and **Delete** (CRUD) operations for sales. It is built with **.NET 8**, **Entity Framework Core**, **MediatR**, **FluentValidation**, and **AutoMapper**.
 
 ---
 
