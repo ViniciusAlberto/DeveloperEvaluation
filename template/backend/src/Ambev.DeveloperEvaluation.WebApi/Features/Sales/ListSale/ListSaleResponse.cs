@@ -1,9 +1,35 @@
-﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale
+﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.ListSale
 {
     /// <summary>
-    /// Represents the response for retrieving a single sale.
+    /// Represents the response for a paginated list of sales.
     /// </summary>
-    public class GetSaleResponse
+    public class ListSaleResponse
+    {
+        /// <summary>
+        /// Gets or sets the collection of sales in the current page.
+        /// </summary>
+        public IEnumerable<SaleDto> Data { get; set; } = new List<SaleDto>();
+
+        /// <summary>
+        /// Gets or sets the total number of sales across all pages.
+        /// </summary>
+        public int TotalItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current page number.
+        /// </summary>
+        public int CurrentPage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total number of pages available.
+        /// </summary>
+        public int TotalPages { get; set; }
+    }
+
+    /// <summary>
+    /// Represents a single sale in the list of sales.
+    /// </summary>
+    public class SaleDto
     {
         /// <summary>
         /// Gets or sets the unique identifier of the sale.
@@ -36,26 +62,21 @@
         public decimal TotalAmount { get; set; }
 
         /// <summary>
-        /// Gets or sets the collection of items in this sale.
-        /// </summary>
-        public List<GetSaleItemResponse> Items { get; set; } = new();
-
-        /// <summary>
         /// Indicates whether the sale has been cancelled.
         /// </summary>
         public bool Cancelled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of items in this sale.
+        /// </summary>
+        public List<SaleItemDto> Items { get; set; } = new();
     }
 
     /// <summary>
-    /// Represents a single item within a sale.
+    /// Represents a single item in a sale.
     /// </summary>
-    public class GetSaleItemResponse
+    public class SaleItemDto
     {
-        /// <summary>
-        /// Gets or sets the unique identifier of the sale item.
-        /// </summary>
-        public Guid Id { get; set; }
-
         /// <summary>
         /// Gets or sets the unique identifier of the product.
         /// </summary>

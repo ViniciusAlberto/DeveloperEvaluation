@@ -2,18 +2,21 @@
 using Ambev.DeveloperEvaluation.Application.Sales.CancelSaleItems;
 using Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
 using Ambev.DeveloperEvaluation.Application.Sales.GetSale;
+using Ambev.DeveloperEvaluation.Application.Sales.ListSale;
 using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 using Ambev.DeveloperEvaluation.Application.Users.CreateUser;
 using Ambev.DeveloperEvaluation.WebApi.Common;
-using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CancelItemSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CancelSale;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CancelSaleItems;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.DeleteSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.ListSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SaleDto = Ambev.DeveloperEvaluation.WebApi.Features.Sales.ListSale.SaleDto;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales;
 
@@ -217,5 +220,49 @@ public class SalesController : BaseController
         });
     }
 
+    [HttpGet]
+    [ProducesResponseType(typeof(PaginatedResponse<ListSaleResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetSales(
+    [FromQuery(Name = "_page")] int page = 1,
+    [FromQuery(Name = "_size")] int size = 10,
+    [FromQuery(Name = "_order")] string order = "id asc",
+    CancellationToken cancellationToken = default)
+    {
+        var request = new ListSaleRequest
+        {
+            Page = page,
+            PageSize = size,
+            OrderBy = order
+        };
+
+        var validator = new ListSaleRequestValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(new ApiResponse
+            {
+                Success = false,
+                Message = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage))
+            });
+        }
+
+        var command = _mapper.Map<ListSaleCommand>(request);
+        var result = await _mediator.Send(command, cancellationToken);
+        var apiItems = _mapper.Map<IEnumerable<SaleDto>>(result.Items);
+
+        var response = new PaginatedResponse<SaleDto>
+        {
+            Success = true,
+            Message = "Sales retrieved successfully",
+            Data = apiItems,             
+            CurrentPage = result.CurrentPage,
+            TotalPages = result.TotalPages,
+            TotalCount = result.TotalCount
+        };
+
+        return Ok(response);
+    }
 
 }
