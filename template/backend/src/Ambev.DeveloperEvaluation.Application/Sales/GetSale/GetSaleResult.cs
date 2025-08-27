@@ -8,6 +8,7 @@
         public string CustomerId { get; set; } = string.Empty;
         public string BranchId { get; set; } = string.Empty;
         public decimal TotalAmount { get; set; }
+        public bool Cancelled { get; set; }
         public List<GetSaleItemResult> Items { get; set; } = new();
     }
 
@@ -18,5 +19,7 @@
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Subtotal { get; set; }
+
+        public bool Cancelled { get; set; }
     }
 }
